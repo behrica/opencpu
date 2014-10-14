@@ -128,7 +128,7 @@ session <- local({
     }
 
     #Shortcuts to get object immediately
-    if(format %in% c("json", "print", "pb")){
+    if(format %in% c("json", "jsonf","print", "pb")){
       sendobject(hash, get(".val", sessionenv), format);
     } else if(format %in% c("console")) {
       sendobject(hash, extract(output, format), "text");
