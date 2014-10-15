@@ -60,7 +60,7 @@ opencpu <- local({
     rootpath <- sub("/$", "", rootpath);
     cat(paste0("Starting server at http://localhost:", port, rootpath), "\n");
     cat("To terminate server, hit ESC (or press STOP in rstudio).")
-    httpuv::runServer("0.0.0.0", port, list(
+    httpuv::runServer("127.0.0.1", port, list(
       call=get("rookhandler", envir=asNamespace("opencpu"))(rootpath)
     ));
   }
@@ -87,7 +87,7 @@ opencpu <- local({
     
     #start httpuv
     myport <- ifelse(missing(port), round(runif(1, 1024, 9999)), port);
-    from("parallel", "sendCall")(child, eval, list(quote(httpuv::runServer("0.0.0.0", myport, list(call=get("rookhandler", envir=asNamespace("opencpu"))(rootpath)))), envir=list(rootpath=rootpath, myport=myport)));
+    from("parallel", "sendCall")(child, eval, list(quote(httpuv::runServer("127.0.0.1", myport, list(call=get("rookhandler", envir=asNamespace("opencpu"))(rootpath)))), envir=list(rootpath=rootpath, myport=myport)));
     
     #should test for running server here
     pid <<- mypid;
